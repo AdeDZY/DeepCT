@@ -10,7 +10,7 @@ source activate /bos/usr0/zhuyund/tf_env
 export BERT_BASE_DIR=/bos/usr0/zhuyund/uncased_L-12_H-768_A-12
 export TEST_DATA_FILE=/bos/usr0/zhuyund/query_reweight/msmarco/docbert_reg/collection.tsv.1
 
-python run_term_reg.py \
+python run_deepct.py \
   --task_name=marcotsvdoc \
   --do_train=false \
   --do_eval=false \

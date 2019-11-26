@@ -10,7 +10,7 @@ export BERT_BASE_DIR=/bos/usr0/zhuyund/uncased_L-12_H-768_A-12
 export TRAIN_DATA_FILE=./data/marco/myalltrain.relevant.docterm_recall
 export OUTPUT_DIR=./output/marco/
 
-python run_term_reg.py \
+python run_deepct.py \
   --task_name=marcodoc \
   --do_train=true \
   --do_eval=false \
