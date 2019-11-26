@@ -54,7 +54,7 @@ python run_deepct.py \
 
 `{"query": "what kind of animals are in grasslands", "term_recall": {"grassland": 1, "animals": 1}, "doc": {"position": "1", "id": "4083643", "title": "Tropical grassland animals (which do not all occur in the same area) include giraffes, zebras, buffaloes, kangaroos, mice, moles, gophers, ground squirrels, snakes, worms, termites, beetles, lions, leopards, hyenas, and elephants."}}`
 
-You can replace `term_recall` with any other ground-truth term weight labels.
+`term_recall` is the ground-truth term weight (see details in our paper). You can replace `term_recall` with any other ground-truth term weight labels.
 
 `OUTPUT_DIR`: output folder for training. It will store the tokenized training file (train.tf_record) and the checkpoints (model.ckpt).
 
