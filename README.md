@@ -21,7 +21,7 @@ The corpus, training files, checkpoints,and predictions can be downloaded from t
 2. `output`: the pre-trained DeepCT model (trained in MS MARCO)
 3. `predictions`：the DeepCT predicted weights for the entire MS MARCO passage ranking corpus. 
 
-The tokenization will take a long time. Alternatively, you can download the preprocessed binary training/inference files (`output/train.tf_record`, (`predictions/collection_pred_1/predict.tf_record` and `predictions/collection_pred_2/predict.tf_record`). And comment out the `'file_based_convert_examples_to_features()'` function calles in `run_deepct.py` line 1061-1062,1112-1114.
+The tokenization will take a long time. Alternatively, you can download the preprocessed binary training/inference files (`output/train.tf_record`, `predictions/collection_pred_1/predict.tf_record`, `predictions/collection_pred_2/predict.tf_record`).  Comment out the `'file_based_convert_examples_to_features()'` function calles in `run_deepct.py` line 1061-1062,1112-1114.
 
 ## Train DeepCT
 
