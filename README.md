@@ -6,9 +6,10 @@ Repository for our arXiv paper "Context-Aware Sentence/Passage Term Importance E
 
 Abstract: Term frequency is a common method for identifying the importance of a term in a query or document. But it is a weak signal, especially when the frequency distribution is flat, such as in long queries or short documents where the text is of sentence/passage-length. This paper proposes a Deep Contextualized Term Weighting framework that learns to map BERT's contextualized text representations to context-aware term weights for sentences and passages.
 
-When applied to passages, DeepCT-Index produces term weights that can be stored in an ordinary inverted index for passage retrieval. When applied to query text, DeepCT-Query generates a weighted bag-of-words query. Both types of term weight can be used directly by typical first-stage retrieval algorithms. This is novel because most deep neural network based ranking models have higher computational costs, and thus are restricted to later-stage rankers.
+When applied to passages, DeepCT-Index produces term weights that can be stored in an ordinary inverted index for passage retrieval. When applied to query text, DeepCT-Query generates a weighted bag-of-words query. Both types of term weight can be used directly by typical first-stage retrieval algorithms. 
 
-Experiments on four datasets demonstrate that DeepCT's deep contextualized text understanding greatly improves the accuracy of first-stage retrieval algorithms.
+![alt text](https://github.com/AdeDZY/DeepCT/blob/master/deepct.png "Illustration of DeepCT")
+
 
 *November 26, 2019*: I am still half-way of cleaning up my experimental codes. But, I have received several requests for the code, so  I started to put what I already have. 
 
