@@ -15,9 +15,17 @@ In this version, I provide code, data and instructions for the document reweight
 Zhuyun
 
 ## MSMARCO passage ranking data
-The training files (query term recall labels), checkpoints,and predictions can be downloaded from the [Virtual Appendix]()
+The corpus, training files, checkpoints,and predictions can be downloaded from the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/)
+
+1. `data`: MS MARCO passage ranking  corpus, and pre-processed training files to train DeepCT. 
+2. `output`: the pre-trained DeepCT model (trained in MS MARCO)
+3. `predictions`：the DeepCT predicted weights for the entire MS MARCO passage ranking corpus. 
+
 
 ## Train DeepCT
+
+To use the sample training code, copy and decompress `data` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/) to the.`./data` under this repo. 
+
 ```
 export BERT_BASE_DIR=/bos/usr0/zhuyund/uncased_L-12_H-768_A-12
 export TRAIN_DATA_FILE=./data/marco/myalltrain.relevant.docterm_recall
@@ -52,11 +60,15 @@ You can replace `term_recall` with any other ground-truth term weight labels.
 
 ## Use DeepCT to Predict Term Weights
  
+ To use the sample training code, download and decompress `data` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/) to the.`./data` under this repo. Download the pre-trained DeepCT model (model.ckpt-65816 files) from `outputs` to `./outputs`.
+ 
+ Alternatively, direct download our DeepCT predicted weights for the entire MS MARCO passage ranking corpus, from `prediction` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/).
+ 
  ```
 export BERT_BASE_DIR=/bos/usr0/zhuyund/uncased_L-12_H-768_A-12
 export INIT_CKPT=./output/marco/model.ckpt-65816
 export TEST_DATA_FILE=./data/collection.tsv.1
-export OUTPUT_DIR=./output/marco/collection_pred_1/
+export OUTPUT_DIR=./predictions/marco/collection_pred_1/
 
 python run_deepct.py \
   --task_name=marcotsvdoc \
@@ -101,3 +113,5 @@ optional arguments:
   -h, --help            show this help message and exit
   --output_format {tsv,json}
  ```
+ 
+ The output files can be feed to indexing tools such as Anserini (used in paper), Indri, or Lucene to build index and run retrieval.
