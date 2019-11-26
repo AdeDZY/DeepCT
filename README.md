@@ -10,9 +10,9 @@ When applied to passages, DeepCT-Index produces term weights that can be stored 
 
 Experiments on four datasets demonstrate that DeepCT's deep contextualized text understanding greatly improves the accuracy of first-stage retrieval algorithms.
 
-November 26, 2019: I am still half-way of cleaning up my experimental codes. But, I have received several requests for the code, so here I decided to put what I already have. 
-In this version, I provide code, data and instructions for the document reweighting (DeepCT-Index) part, focusing on the MSMARCO passage ranking dataset. -- 
-Zhuyun
+November 26, 2019: I am still half-way of cleaning up my experimental codes. But, I have received several requests for the code, so  I started to put what I already have. 
+
+In this version, I provide code, data and instructions for the document reweighting (DeepCT-Index) part, focusing on the MSMARCO passage ranking dataset. Thank you :P -- Zhuyun
 
 ## MSMARCO passage ranking data
 The corpus, training files, checkpoints,and predictions can be downloaded from the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/)
