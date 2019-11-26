@@ -60,14 +60,14 @@ def tsv_to_weighted_doc(dataset_file_path,
             if output_format == "tsv":
                 output_file.write(did + '\t' + dtext.strip()  + '\n')
             elif output_format == "json":
-                output_file.write(json.dumps({"id": did, "contents": dtext.strip()))
+                output_file.write(json.dumps({"id": did, "contents": dtext.strip()}))
                 output_file.write("\n")
             a += len(sampled_tokens)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('dataset_file', help='Dataset tsv file')
-    parser.add_argument('prediction_file', help='DeepCT prediction file')
+    parser.add_argument('dataset_file', help='Dataset tsv file (collection.tsv.1)')
+    parser.add_argument('prediction_file', help='DeepCT prediction file (test_result.tsv)')
     parser.add_argument('output_file', help='Output File')
     parser.add_argument('m', type=int, help='scaling parameter > 0, recommend 100')
     parser.add_argument('--output_format', type=str, choices=["tsv", "json"], default="tsv")
