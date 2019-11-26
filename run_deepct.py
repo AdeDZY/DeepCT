@@ -62,22 +62,7 @@ flags.DEFINE_string(
 
 flags.DEFINE_bool(
     "do_lower_case", True,
-    "Whether to lower case the input text. Should be True for uncased "
-    "models and False for cased models.")
-
-flags.DEFINE_bool(
-    "use_all_layers", False,
-    "feature is last layer or concat all encoder layers")
-
-flags.DEFINE_integer(
-    "max_seq_length", 128,
-    "The maximum total input sequence length after WordPiece tokenization. "
-    "Sequences longer than this will be truncated, and sequences shorter "
-    "than this will be padded.")
-
-flags.DEFINE_integer("max_body_length", 500, "cut body at this length")
-
-flags.DEFINE_bool("do_train", False, "Whether to run training.")
+    "Whether to lower case the do_train", False, "Whether to run training.")
 
 flags.DEFINE_bool("do_eval", False, "Whether to run eval on the dev set.")
 
@@ -1075,9 +1060,9 @@ def main(_):
         train_file = os.path.join(FLAGS.output_dir, "train.tf_record")
         file_based_convert_examples_to_features(
             train_examples, FLAGS.max_seq_length, tokenizer, train_file)
-        tf.logging.info("write to {}/train.tf_record! exit. I am NOT training".format(FLAGS.output_dir))
+        #tf.logging.info("write to {}/train.tf_record! exit. I am NOT training".format(FLAGS.output_dir))
         #tf.logging.info("I am NOT writing train file")
-        exit(-1)
+        #exit(-1)
 
     # If TPU is not available, this will fall back to normal Estimator on CPU
     # or GPU.
