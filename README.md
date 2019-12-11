@@ -14,14 +14,25 @@ When applied to passages, DeepCT-Index produces term weights that can be stored 
 
 In this version, I provide code, data and instructions for the *document reweighting (DeepCT-Index)* part, focusing on the *MS MARCO* passage ranking dataset. Thank you :P -- Zhuyun
 
+## Weighted Document files
+
+If want to directly use the DeepCT-Index weighted MS-MARCO documents (e.g., to build index & run experiments), download them here:
+[Virtual Appendix/weighted_documents](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/weighted_documents/)
+
+`sample_100_jsonl.zip`: a folder of json files. Every line is a document (see below example). We used a stupid method that repeats each term X times, where X is the predicted TF_{DeepCT}. These documents use (eq 4) in the paper: `TF_{DeepCT}(t,d) = round(y * N), N=100`. 
+
+`sqrt_sample_100_jsonl.zip`: These documents use a smoothed version of TF_{DeepCT}. It is: `TF_{DeepCT}(t,d) = round(sqrt(y) * N), N=100`. `sqrt` makes small values highe, e.g., sqrt(0.01)=0.1, so more terms will appear in the document. 
+
+`{"id": "2", "contents": "essay essay essay essay essay essay essay essay essay essay essay essay bomb bomb bomb bomb bomb bomb success manmade manmade possible project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project atomic atomic atomic atomic atomic atomic making making making manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan manhattan change change"}`
+
 ## MSMARCO passage ranking data
-The corpus, training files, checkpoints,and predictions can be downloaded from the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/)
+
+To reproduce DeepCT-Index: The corpus, training files, checkpoints,and predictions can be downloaded from the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/)
 
 1. `data`: MS MARCO passage ranking corpus, and pre-processed training files to train DeepCT. 
 2. `output`: the pre-trained DeepCT model (trained in MS MARCO)
 3. `predictions`：the DeepCT predicted weights for the entire MS MARCO passage ranking corpus. 
 
-If you just want to use the DeepCT-Index weights on MS-MARCO, go to the last section.
 
 The tokenization will take a long time. Alternatively, you can download the preprocessed binary training/inference files (`output/train.tf_record`, `predictions/collection_pred_1/predict.tf_record`, `predictions/collection_pred_2/predict.tf_record`).  Comment out the `'file_based_convert_examples_to_features()'` function calles in `run_deepct.py` line 1061-1062,1112-1114.
 
