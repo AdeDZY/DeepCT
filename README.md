@@ -19,11 +19,12 @@ In this version, I provide code, data and instructions for the *document reweigh
 If want to directly use the DeepCT-Index weighted MS-MARCO passages (e.g., to build index & run experiments), download them here:
 [Virtual Appendix/weighted_documents](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/weighted_documents/)
 
-`sample_100_jsonl.zip`: a folder of json files. Every line is a passage (see below example). We used a stupid method that repeats each term X times, where X is the predicted TF_{DeepCT}. These documents use (eq 4) in the paper: `TF_{DeepCT}(t,d) = round(y * N), N=100`. 
+There are fwo files. DeepCT generates a floating-point weight for every term: y_{t,d}. To turn it into an integer TF-like weight:
 
-`sqrt_sample_100_jsonl.zip`: These documents use a smoothed version of TF_{DeepCT}. It is: `TF_{DeepCT}(t,d) = round(sqrt(y) * N), N=100`. `sqrt` makes small values highe, e.g., sqrt(0.01)=0.1, so more terms will appear in the document. 
+1. The paper used `TF_{DeepCT}(t, d) = round(y_{t,d} * 100)` (`sample_100_jsonl.zip`)
+2. Later I use `TF_{DeepCT}(t, d) = round(sqrt(y_{t,d}) * 100)` (`sqrt_sample_100_jsonl.zip`). sqrt makes small values highe, e.g., sqrt(0.01)=0.1, so more terms will appear in the document. 
 
-These json files can be directly feed into [Anserini](https://github.com/castorini/anserini) to build inverted indexes.
+Each line in the json file is a weighted passage. We repeat very word TF_{DeepCT} times, so that these json files can be directly feed into [Anserini](https://github.com/castorini/anserini) to build inverted indexes.
 
 `{"id": "2", "contents": "essay essay essay essay essay essay essay essay essay essay essay essay bomb bomb bomb bomb bomb bomb success manmade manmade possible project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project atomic atomic atomic atomic atomic atomic making making making ..."}`
 
