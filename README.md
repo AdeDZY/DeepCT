@@ -111,7 +111,11 @@ python run_deepct.py \
  `[CLS] 0.0       the -0.0023216241970658302      presence 0.0160924531519413     of 0.0003044793847948313      ...     ; -0.0012609917903319001        hundreds 0.000732177053578198   of -0.0018553155241534114       thousands 0.001125242910347879  of -0.0011851346353068948       innocent 0.004741794429719448   lives 0.015339942649006844      ob 0.006402325350791216 ##lite 0.0      ##rated 0.0     . -0.002221715170890093 [SEP] -0.0      [PAD] -0.0      [PAD] -0.0      [PAD] -0.0      [PAD] -0.0`
  
  ## Turn float-point term wegihts into TF-like index weights
- 
+
+Now we need to turn the above BERT outputs (`y`) into TF-like term index weights. 
+
+This methods implements (eq 4) in the paper: `TF_{DeepCT}(t,d) = round(y * N)`. Let us know if you found better ways!
+
 Download our DeepCT predicted weights for the entire MS MARCO passage ranking corpus, from `prediction` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/
  
  Use `bert_term_sample_to_json.py` to: 
