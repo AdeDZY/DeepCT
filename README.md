@@ -21,6 +21,8 @@ The corpus, training files, checkpoints,and predictions can be downloaded from t
 2. `output`: the pre-trained DeepCT model (trained in MS MARCO)
 3. `predictions`：the DeepCT predicted weights for the entire MS MARCO passage ranking corpus. 
 
+If you just want to use the DeepCT-Index weights on MS-MARCO, go to the last section.
+
 The tokenization will take a long time. Alternatively, you can download the preprocessed binary training/inference files (`output/train.tf_record`, `predictions/collection_pred_1/predict.tf_record`, `predictions/collection_pred_2/predict.tf_record`).  Comment out the `'file_based_convert_examples_to_features()'` function calles in `run_deepct.py` line 1061-1062,1112-1114.
 
 ## Train DeepCT
@@ -59,11 +61,11 @@ python run_deepct.py \
 
 `OUTPUT_DIR`: output folder for training. It will store the tokenized training file (train.tf_record) and the checkpoints (model.ckpt).
 
-## Use DeepCT to Predict Term Weights
+## Use DeepCT to Predict Term Weights (Inference)
  
  To use the sample training code, download and decompress `data` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/) to the.`./data` under this repo. Download the pre-trained DeepCT model (model.ckpt-65816 files) from `outputs` to `./outputs`.
  
- Alternatively, direct download our DeepCT predicted weights for the entire MS MARCO passage ranking corpus, from `prediction` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/).
+(You can skip this step. Alternatively, direct download our DeepCT predicted weights for the entire MS MARCO passage ranking corpus, from `prediction` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/).)
  
  ```
 export BERT_BASE_DIR=/bos/usr0/zhuyund/uncased_L-12_H-768_A-12
@@ -95,7 +97,10 @@ python run_deepct.py \
  
  `[CLS] 0.0       the -0.0023216241970658302      presence 0.0160924531519413     of 0.0003044793847948313      ...     ; -0.0012609917903319001        hundreds 0.000732177053578198   of -0.0018553155241534114       thousands 0.001125242910347879  of -0.0011851346353068948       innocent 0.004741794429719448   lives 0.015339942649006844      ob 0.006402325350791216 ##lite 0.0      ##rated 0.0     . -0.002221715170890093 [SEP] -0.0      [PAD] -0.0      [PAD] -0.0      [PAD] -0.0      [PAD] -0.0`
  
- ## Post-Processing
+ ## Turn float-point term wegihts into TF-like index weights
+ 
+Download our DeepCT predicted weights for the entire MS MARCO passage ranking corpus, from `prediction` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/
+ 
  Use `bert_term_sample_to_json.py` to: 
  1. map test_result.tsv back to original document ids, and
  2. scale the weights into integers for indexing.
