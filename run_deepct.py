@@ -62,7 +62,22 @@ flags.DEFINE_string(
 
 flags.DEFINE_bool(
     "do_lower_case", True,
-    "Whether to lower case the do_train", False, "Whether to run training.")
+    "Whether to lower case the input text. Should be True for uncased "
+    "models and False for cased models.")
+
+flags.DEFINE_bool(
+    "use_all_layers", False,
+    "feature is last layer or concat all encoder layers")
+
+flags.DEFINE_integer(
+    "max_seq_length", 128,
+    "The maximum total input sequence length after WordPiece tokenization. "
+    "Sequences longer than this will be truncated, and sequences shorter "
+    "than this will be padded.")
+
+flags.DEFINE_integer("max_body_length", 500, "cut body at this length")
+
+flags.DEFINE_bool("do_train", False, "Whether to run training.")
 
 flags.DEFINE_bool("do_eval", False, "Whether to run eval on the dev set.")
 
@@ -1000,8 +1015,8 @@ def main(_):
                   "marcotsvdoc": MarcoTsvDocProcessor,
                   "cardoc": CarDocProcessor, 
                   "carjsondoc": CarJsonDocProcessor,
-                  "idcontentsjson": IdContentsJsonDocProcessor,
-                  "trec19marcodoc": TREC19MarcoDocProcessor}
+                  "idcontentsjson": IdContentsJsonDocProcessor
+                  }
 
     tokenization.validate_case_matches_checkpoint(FLAGS.do_lower_case,
                                                   FLAGS.init_checkpoint)
