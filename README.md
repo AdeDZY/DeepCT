@@ -6,20 +6,36 @@ Repository for our arXiv paper "Context-Aware Sentence/Passage Term Importance E
 
 Abstract: Term frequency is a common method for identifying the importance of a term in a query or document. But it is a weak signal, especially when the frequency distribution is flat, such as in long queries or short documents where the text is of sentence/passage-length. This paper proposes a Deep Contextualized Term Weighting framework that learns to map BERT's contextualized text representations to context-aware term weights for sentences and passages.
 
-When applied to passages, DeepCT-Index produces term weights that can be stored in an ordinary inverted index for passage retrieval. When applied to query text, DeepCT-Query generates a weighted bag-of-words query. Both types of term weight can be used directly by typical first-stage retrieval algorithms. This is novel because most deep neural network based ranking models have higher computational costs, and thus are restricted to later-stage rankers.
+When applied to passages, DeepCT-Index produces term weights that can be stored in an ordinary inverted index for passage retrieval. When applied to query text, DeepCT-Query generates a weighted bag-of-words query. Both types of term weight can be used directly by typical first-stage retrieval algorithms. 
 
-Experiments on four datasets demonstrate that DeepCT's deep contextualized text understanding greatly improves the accuracy of first-stage retrieval algorithms.
+<img src="deepct.png" alt="Illustration of DeepCT" width="500"/>
 
 *November 26, 2019*: I am still half-way of cleaning up my experimental codes. But, I have received several requests for the code, so  I started to put what I already have. 
 
 In this version, I provide code, data and instructions for the *document reweighting (DeepCT-Index)* part, focusing on the *MS MARCO* passage ranking dataset. Thank you :P -- Zhuyun
 
-## MSMARCO passage ranking data
-The corpus, training files, checkpoints,and predictions can be downloaded from the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/)
+## Weighted MS-MARCO Passage Files
+
+If want to directly use the DeepCT-Index weighted MS-MARCO passages (e.g., to build index & run experiments), download them here:
+[Virtual Appendix/weighted_documents](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/weighted_documents/)
+
+There are fwo files. DeepCT generates a floating-point weight for every term: y_{t,d}. To turn it into an integer TF-like weight:
+
+1. The paper used `TF_{DeepCT}(t, d) = round(y_{t,d} * 100)` (`sample_100_jsonl.zip`)
+2. Later I use `TF_{DeepCT}(t, d) = round(sqrt(y_{t,d}) * 100)` (`sqrt_sample_100_jsonl.zip`). sqrt makes small values highe, e.g., sqrt(0.01)=0.1, so more terms will appear in the document. 
+
+Each line in the json file is a weighted passage. We repeat very word TF_{DeepCT} times, so that these json files can be directly feed into [Anserini](https://github.com/castorini/anserini) to build inverted indexes.
+
+`{"id": "2", "contents": "essay essay essay essay essay essay essay essay essay essay essay essay bomb bomb bomb bomb bomb bomb success manmade manmade possible project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project atomic atomic atomic atomic atomic atomic making making making ..."}`
+
+## MSMARCO passage ranking task data for reproducing
+
+To reproduce DeepCT-Index: The corpus, training files, checkpoints,and predictions can be downloaded from the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/)
 
 1. `data`: MS MARCO passage ranking corpus, and pre-processed training files to train DeepCT. 
 2. `output`: the pre-trained DeepCT model (trained in MS MARCO)
 3. `predictions`：the DeepCT predicted weights for the entire MS MARCO passage ranking corpus. 
+
 
 The tokenization will take a long time. Alternatively, you can download the preprocessed binary training/inference files (`output/train.tf_record`, `predictions/collection_pred_1/predict.tf_record`, `predictions/collection_pred_2/predict.tf_record`).  Comment out the `'file_based_convert_examples_to_features()'` function calles in `run_deepct.py` line 1061-1062,1112-1114.
 
@@ -59,11 +75,11 @@ python run_deepct.py \
 
 `OUTPUT_DIR`: output folder for training. It will store the tokenized training file (train.tf_record) and the checkpoints (model.ckpt).
 
-## Use DeepCT to Predict Term Weights
+## Use DeepCT to Predict Term Weights (Inference)
  
- To use the sample training code, download and decompress `data` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/) to the.`./data` under this repo. Download the pre-trained DeepCT model (model.ckpt-65816 files) from `outputs` to `./outputs`.
+ To use the sample training code, download and decompress `data` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/) to the.`./data` under this repo. Download the pre-trained DeepCT model (model.ckpt-65816 files) from `outputs` to `./output`.
  
- Alternatively, direct download our DeepCT predicted weights for the entire MS MARCO passage ranking corpus, from `prediction` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/).
+(You can skip this step. Alternatively, direct download our DeepCT predicted weights for the entire MS MARCO passage ranking corpus, from `prediction` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/).)
  
  ```
 export BERT_BASE_DIR=/bos/usr0/zhuyund/uncased_L-12_H-768_A-12
@@ -95,7 +111,14 @@ python run_deepct.py \
  
  `[CLS] 0.0       the -0.0023216241970658302      presence 0.0160924531519413     of 0.0003044793847948313      ...     ; -0.0012609917903319001        hundreds 0.000732177053578198   of -0.0018553155241534114       thousands 0.001125242910347879  of -0.0011851346353068948       innocent 0.004741794429719448   lives 0.015339942649006844      ob 0.006402325350791216 ##lite 0.0      ##rated 0.0     . -0.002221715170890093 [SEP] -0.0      [PAD] -0.0      [PAD] -0.0      [PAD] -0.0      [PAD] -0.0`
  
- ## Post-Processing
+ ## Turn float-point term wegihts into TF-like index weights
+
+Now we need to turn the above BERT outputs (`y`) into TF-like term index weights. 
+
+This methods implements (eq 4) in the paper: `TF_{DeepCT}(t,d) = round(y * N)`. Let us know if you found better ways!
+
+Download our DeepCT predicted weights for the entire MS MARCO passage ranking corpus, from `prediction` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/
+ 
  Use `bert_term_sample_to_json.py` to: 
  1. map test_result.tsv back to original document ids, and
  2. scale the weights into integers for indexing.
@@ -116,3 +139,7 @@ optional arguments:
  ```
  
  The output files can be feed to indexing tools such as Anserini (used in paper), Indri, or Lucene to build index and run retrieval.
+ Go to the original repository of [Anserini](https://github.com/castorini/anserini)
+ 
+ For retrieval, it is critical to fine-tune the BM25/LM parameters (k1, b, \mu). See detaills in [issue#2](https://github.com/AdeDZY/DeepCT/issues/2).
+ 
