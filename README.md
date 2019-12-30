@@ -141,3 +141,5 @@ optional arguments:
  The output files can be feed to indexing tools such as Anserini (used in paper), Indri, or Lucene to build index and run retrieval.
  Go to the original repository of [Anserini](https://github.com/castorini/anserini)
  
+ For retrieval, it is critical to fine-tune the BM25/LM parameters (k1, b, \mu). See detaills in [issue#2](https://github.com/AdeDZY/DeepCT/issues/2).
+ 
