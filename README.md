@@ -14,7 +14,7 @@ When applied to passages, DeepCT-Index produces term weights that can be stored 
 
 In this version, I provide code, data and instructions for the *document reweighting (DeepCT-Index)* part, focusing on the *MS MARCO* passage ranking dataset. Thank you :P -- Zhuyun
 
-## Weighted MS-MARCO Passage Files
+## DATA 1: Weighted MS-MARCO Passage Files
 
 If want to directly use the DeepCT-Index weighted MS-MARCO passages (e.g., to build index & run experiments), download them here:
 [Virtual Appendix/weighted_documents](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/weighted_documents/)
@@ -28,11 +28,11 @@ Each line in the json file is a weighted passage. We repeat very word TF_{DeepCT
 
 `{"id": "2", "contents": "essay essay essay essay essay essay essay essay essay essay essay essay bomb bomb bomb bomb bomb bomb success manmade manmade possible project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project atomic atomic atomic atomic atomic atomic making making making ..."}`
 
-## DeepCT Retrieved Documents (Initial Rankings)
+## DATA 2:DeepCT Retrieved Documents (Initial Rankings)
 
 We also released the top 1000 documents retrieved by DeepCT for the MS MARCO dev/eval queries. You can use these as your initial document ranking for downstream re-ranking. The ranking files can be downloaded from [here](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/msmarco_rankings/).
 
-## MSMARCO passage ranking task data for reproducing
+## DATA 3: MSMARCO passage ranking task data for reproducing
 The source code uses 
 - Python 3
 - Tensorflow 1.15.0
@@ -46,7 +46,7 @@ To reproduce DeepCT-Index: The corpus, training files, checkpoints,and predictio
 
 The tokenization will take a long time. Alternatively, you can download the preprocessed binary training/inference files (`output/train.tf_record`, `predictions/collection_pred_1/predict.tf_record`, `predictions/collection_pred_2/predict.tf_record`).  Comment out the `'file_based_convert_examples_to_features()'` function calles in `run_deepct.py` line 1061-1062,1112-1114.
 
-## Train DeepCT
+## Run DeepCT 1: Train DeepCT
 
 To use the sample training code, copy and decompress `data` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/) to the.`./data` under this repo. 
 
@@ -82,7 +82,7 @@ python run_deepct.py \
 
 `OUTPUT_DIR`: output folder for training. It will store the tokenized training file (train.tf_record) and the checkpoints (model.ckpt).
 
-## Use DeepCT to Predict Term Weights (Inference)
+## Run DeepCT 2: Use DeepCT to Predict Term Weights (Inference)
  
  To use the sample training code, download and decompress `data` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/) to the.`./data` under this repo. Download the pre-trained DeepCT model (model.ckpt-65816 files) from `outputs` to `./output`.
  
@@ -118,7 +118,7 @@ python run_deepct.py \
  
  `[CLS] 0.0       the -0.0023216241970658302      presence 0.0160924531519413     of 0.0003044793847948313      ...     ; -0.0012609917903319001        hundreds 0.000732177053578198   of -0.0018553155241534114       thousands 0.001125242910347879  of -0.0011851346353068948       innocent 0.004741794429719448   lives 0.015339942649006844      ob 0.006402325350791216 ##lite 0.0      ##rated 0.0     . -0.002221715170890093 [SEP] -0.0      [PAD] -0.0      [PAD] -0.0      [PAD] -0.0      [PAD] -0.0`
  
- ## Turn float-point term wegihts into TF-like index weights
+ ## Run DeepCT 3: Turn float-point term wegihts into TF-like index weights
 
 Now we need to turn the above BERT outputs (`y`) into TF-like term index weights. 
 
