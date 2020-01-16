@@ -16,10 +16,10 @@ In this version, I provide code, data and instructions for the *document reweigh
 
 ## DATA 1: Weighted MS-MARCO Passage Files
 
-If want to directly use the DeepCT-Index weighted MS-MARCO passages (e.g., to build index & run experiments), download them here:
+If you want to directly use the DeepCT-Index weighted MS-MARCO passages (e.g., to build index & run experiments), download them here:
 [Virtual Appendix/weighted_documents](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/weighted_documents/)
 
-There are fwo files. DeepCT generates a floating-point weight for every term: y_{t,d}. To turn it into an integer TF-like weight:
+DeepCT generates a floating-point weight for every term: y_{t,d}. To turn it into an integer TF-like weight, we tested 2 different ways:
 
 1. The paper used `TF_{DeepCT}(t, d) = round(y_{t,d} * 100)` (`sample_100_jsonl.zip`)
 2. Later I use `TF_{DeepCT}(t, d) = round(sqrt(y_{t,d}) * 100)` (`sqrt_sample_100_jsonl.zip`). sqrt makes small values highe, e.g., sqrt(0.01)=0.1, so more terms will appear in the document. 
