@@ -24,7 +24,7 @@ DeepCT generates a floating-point weight for every term: y_{t,d}. To turn it int
 1. The paper used `TF_{DeepCT}(t, d) = round(y_{t,d} * 100)` (`sample_100_jsonl.zip`)
 2. Later I use `TF_{DeepCT}(t, d) = round(sqrt(y_{t,d}) * 100)` (`sqrt_sample_100_jsonl.zip`). sqrt makes small values highe, e.g., sqrt(0.01)=0.1, so more terms will appear in the document. 
 
-Each line in the json file is a weighted passage. We repeat very word TF_{DeepCT} times, so that these json files can be directly feed into [Anserini](https://github.com/castorini/anserini) to build inverted indexes.
+Each line in the json file is the text of a weighted passage. We repeat very word TF_{DeepCT} times, so that these json files can be directly feed into [Anserini](https://github.com/castorini/anserini) to build inverted indexes.
 
 `{"id": "2", "contents": "essay essay essay essay essay essay essay essay essay essay essay essay bomb bomb bomb bomb bomb bomb success manmade manmade possible project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project atomic atomic atomic atomic atomic atomic making making making ..."}`
 
@@ -32,10 +32,7 @@ Each line in the json file is a weighted passage. We repeat very word TF_{DeepCT
 
 We also released the top 1000 documents retrieved by DeepCT for the MS MARCO dev/eval queries. You can use these as your initial document ranking for downstream re-ranking. The ranking files can be downloaded from [here](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/msmarco_rankings/).
 
-## DATA 3: MSMARCO passage ranking task data for reproducing
-The source code uses 
-- Python 3
-- Tensorflow 1.15.0
+## DATA 3: Ohter MS MARCO passage ranking task data for reproducing
 
 To reproduce DeepCT-Index: The corpus, training files, checkpoints,and predictions can be downloaded from the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/)
 
@@ -47,6 +44,10 @@ To reproduce DeepCT-Index: The corpus, training files, checkpoints,and predictio
 The tokenization will take a long time. Alternatively, you can download the preprocessed binary training/inference files (`output/train.tf_record`, `predictions/collection_pred_1/predict.tf_record`, `predictions/collection_pred_2/predict.tf_record`).  Comment out the `'file_based_convert_examples_to_features()'` function calles in `run_deepct.py` line 1061-1062,1112-1114.
 
 ## Run DeepCT 1: Train DeepCT
+
+The source code uses 
+- Python 3
+- Tensorflow 1.15.0
 
 To use the sample training code, copy and decompress `data` in the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/) to the.`./data` under this repo. 
 
