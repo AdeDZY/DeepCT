@@ -2,12 +2,8 @@ import argparse
 import json
 import re
 import string
-import nltk
 from nltk import word_tokenize
 from nltk.stem.porter import PorterStemmer
-
-nltk.data.path.append("/bos/usr0/zhuyund/nltk_data")
-
 
 stopwords = set([line.strip() for line in open("./data/stopwords.txt")]) 
 stemmer = PorterStemmer()
@@ -31,30 +27,25 @@ if __name__ == '__main__':
     parser.add_argument("--stop", action="store_true", help="recommend: true")
     args = parser.parse_args()
 
+    # read trec
+    
     for line in open(args.json_in_file):
+        term_recall = {}
+
         json_dict = json.loads(line)
-        json_dict["term_recall"] = {} 
-        
-        queries = json_dict["queries"]
-        qtokens = {}
-        for query in queries:
-            qtext = text_clean(query, args.stem, args.stop)
-            if not qtext: 
-                continue
-            tokens = set(qtext.split(' '))
-            for t in tokens:
-                qtokens[t] = qtokens.get(t, 0.0) + 1.0/len(queries)
+        qtext = text_clean(json_dict["query"], args.stem, args.stop)
+        qtokens = set(qtext.split(' '))
+        title_text = json_dict['doc']['title']
+        title_text = text_clean(title_text, False, args.stop)
+        title_tokens = set(title_text.split(' '))
 
-        doc_text = json_dict['doc']['title']
-        doc_text = text_clean(doc_text, False, args.stop)
-        doc_tokens = set(doc_text.split(' '))
-        doc_term_recall = {}
-        for ttoken in doc_tokens:
+        for ttoken in title_tokens:
             ttoken2 = ttoken
-            if args.stem: ttoken2 = stemmer.stem(ttoken)
+            if args.stem: 
+                ttoken2 = stemmer.stem(ttoken)
             if ttoken2 in qtokens:
-                doc_term_recall[ttoken] = qtokens[ttoken2]
-        json_dict["term_recall"] = doc_term_recall 
-
+                term_recall[ttoken] = term_recall.get(ttoken, 0) + 1
+    
+        json_dict["term_recall"] = term_recall 
         out_str = json.dumps(json_dict)
         print(out_str)
