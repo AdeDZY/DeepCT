@@ -5,7 +5,7 @@ import string
 from nltk import word_tokenize
 from nltk.stem.porter import PorterStemmer
 
-stopwords = set([line.strip() for line in open("./data/stopwords.txt")]) 
+stopwords = set([line.strip() for line in open("../data/stopwords.txt")]) 
 stemmer = PorterStemmer()
 
 def text_clean(text, stem, stop):
@@ -22,7 +22,7 @@ def text_clean(text, stem, stop):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("json_in_file")
+    parser.add_argument("json_in_file", help="Each line: {\"query\": \"what kind of animals are in grasslands\", \"doc\":{\"title\": Tropical grassland animals (which do not all occur in the same area) include giraffes, zebras, buffaloes, ka...}}")
     parser.add_argument("--stem", action="store_true", help="recommend: true")
     parser.add_argument("--stop", action="store_true", help="recommend: true")
     args = parser.parse_args()
