@@ -8,7 +8,8 @@ Abstract: Term frequency is a common method for identifying the importance of a 
 
 - When applied to **passages**, DeepCT-Index produces term weights that can be stored in an ordinary inverted index for passage retrieval. 
 - When applied to **query** text, DeepCT-Query generates a weighted bag-of-words query that emphasizes essential terms in the query. 
-Both types of term weight can be used directly by typical first-stage retrieval algorithms. 
+
+Both types of term weight can be used directly by typical first-stage retrieval algorithms to improve retrieval effectiveness. 
 
 <img src="deepct.png" alt="Illustration of DeepCT" width="500"/>
 
