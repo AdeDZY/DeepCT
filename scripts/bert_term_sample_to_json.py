@@ -3,7 +3,7 @@ import json
 import numpy as np
 
 
-def subword_weight_to_word_weight(subword_weight_str, m):
+def subword_weight_to_word_weight(subword_weight_str, m, smoothing, keep_all_terms):
     fulltokens = []
     weights = []
     for item in subword_weight_str.split('\t'):
@@ -19,12 +19,19 @@ def subword_weight_to_word_weight(subword_weight_str, m):
     fulltokens_filtered, weights_filtered = [], []
     selected_tokens = {}
     for token, w in zip(fulltokens, weights):
-        if token == '[CLS]' or token == '[SEP]':
+        if token == '[CLS]' or token == '[SEP]' or token == '[PAD]':
             continue
-        if w * m < 1:
-            continue
-        tf = int(np.round(w * m))
-        if tf < 1: continue
+
+        if w < 0: w = 0
+        if smoothing == "sqrt":
+            tf = int(np.round(m * np.sqrt(w)))
+        else:
+            tf = int(np.round(m * w))
+        
+        if tf < 1: 
+            if not keep_all_terms: continue
+            else: tf = 1
+
         selected_tokens[token] = max(tf, selected_tokens.get(token, 0))
 
     return selected_tokens
@@ -33,7 +40,9 @@ def tsv_to_weighted_doc(dataset_file_path,
                         prediction_file_path,
                         output_file_path,
                         m,
-                        output_format):
+                        smoothing='none',
+                        keep_all_terms=False,
+                        output_format='tsv'):
     """
 
     :param dataset_file_path: tsv file
@@ -48,8 +57,8 @@ def tsv_to_weighted_doc(dataset_file_path,
             n += 1
             if n % 10000 == 0: 
                 print("processe {} lines, {} empty, avg len: {}".format(n, e, float(a)/(n - e)))
-            did = line.split('\t')[0]
-            selected_tokens = subword_weight_to_word_weight(l2, m)
+            did = l1.split('\t')[0]
+            selected_tokens = subword_weight_to_word_weight(l2, m, smoothing, keep_all_terms)
             if not selected_tokens: 
                 e += 1
                 continue 
@@ -70,6 +79,8 @@ if __name__ == '__main__':
     parser.add_argument('prediction_file', help='DeepCT prediction file (test_result.tsv)')
     parser.add_argument('output_file', help='Output File')
     parser.add_argument('m', type=int, help='scaling parameter > 0, recommend 100')
+    parser.add_argument('--smoothing', type=str, choices=["none", "sqrt"], help="optionally use sqrt to smooth weights. Paper uses none..")
+    parser.add_argument('--keep_all_terms', action='store_true', help="do not allow DeepCT to delete terms. Default: false")
     parser.add_argument('--output_format', type=str, choices=["tsv", "json"], default="tsv")
     args = parser.parse_args()
 
@@ -79,5 +90,7 @@ if __name__ == '__main__':
                         args.prediction_file,
                         args.output_file, 
                         args.m,
+                        args.smoothing,
+                        args.keep_all_terms,
                         args.output_format)
 
