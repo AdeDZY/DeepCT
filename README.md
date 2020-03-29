@@ -35,7 +35,7 @@ Each line in the json file is the text of a weighted passage. We repeat very wor
 
 We also released the top 1000 documents retrieved by DeepCT for the MS MARCO dev/eval queries. You can use these as your initial document ranking for downstream re-ranking. The ranking files can be downloaded from [here](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/msmarco_rankings/).
 
-## DATA 3: Ohter MS MARCO passage ranking task data for reproducing
+## DATA 3: Other MS MARCO passage ranking task data for reproducing
 
 To reproduce DeepCT-Index: The corpus, training files, checkpoints,and predictions can be downloaded from the [Virtual Appendix](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/)
 
