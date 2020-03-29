@@ -17,9 +17,13 @@ Both types of term weight can be used directly by typical first-stage retrieval 
 
 In this version, I provide code, data and instructions for the *document reweighting (DeepCT-Index)* part, focusing on the *MS MARCO* passage ranking dataset. Thank you :P -- Zhuyun
 
-## DATA 1: Weighted MS-MARCO Passage Files
+## DATA 1:DeepCT Retrieved Documents (Initial Rankings)
 
-If you want to directly use the DeepCT-Index weighted MS-MARCO passages (e.g., to build index & run experiments), download them here:
+We released the top 1000 documents retrieved by DeepCT for the MS MARCO dev/eval queries. You can use these as your initial document ranking for downstream re-ranking. The ranking files can be downloaded from [here](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/msmarco_rankings/).
+
+## DATA 2: Weighted MS-MARCO Passage Files
+
+If you want to use the DeepCT-Index weighted MS-MARCO passages (e.g., to build index & run experiments), download them here:
 [Virtual Appendix/weighted_documents](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/weighted_documents/)
 
 DeepCT generates a floating-point weight for every term: y_{t,d}. To turn it into an integer TF-like weight, we tested 2 different ways:
@@ -31,9 +35,7 @@ Each line in the json file is the text of a weighted passage. We repeat every wo
 
 `{"id": "2", "contents": "essay essay essay essay essay essay essay essay essay essay essay essay bomb bomb bomb bomb bomb bomb success manmade manmade possible project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project atomic atomic atomic atomic atomic atomic making making making ..."}`
 
-## DATA 2:DeepCT Retrieved Documents (Initial Rankings)
 
-We also released the top 1000 documents retrieved by DeepCT for the MS MARCO dev/eval queries. You can use these as your initial document ranking for downstream re-ranking. The ranking files can be downloaded from [here](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/msmarco_rankings/).
 
 ## DATA 3: Other MS MARCO passage ranking task data for reproducing
 
