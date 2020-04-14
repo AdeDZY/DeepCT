@@ -31,13 +31,16 @@ DeepCT generates a floating-point weight for every term: y_{t,d}. To turn it int
 1. The paper used `TF_{DeepCT}(t, d) = round(y_{t,d} * 100)` (`sample_100_jsonl.zip`)
 2. Later I use `TF_{DeepCT}(t, d) = round(sqrt(y_{t,d}) * 100)` (`sqrt_sample_100_jsonl.zip`). sqrt makes small values highe, e.g., sqrt(0.01)=0.1, so more terms will appear in the document. 
 
-Each line in the json file is the text of a weighted passage. We repeat every word TF_{DeepCT} times, so that these json files can be directly feed into [Anserini](https://github.com/castorini/anserini) to build inverted indexes. In the paper, we fine-tuned the BM25 parameters (k1, b) for all baselines and DeepCT-index methods. We recommend the following parameters:
+Each line in the json file is the text of a weighted passage. We repeat every word TF_{DeepCT} times, so that these json files can be directly feed into [Anserini](https://github.com/castorini/anserini) to build inverted indexes.
+
+`{"id": "2", "contents": "essay essay essay essay essay essay essay essay essay essay essay essay bomb bomb bomb bomb bomb bomb success manmade manmade possible project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project   atomic atomic atomic atomic atomic atomic making making making ..."}`
+
+
+In the paper, we fine-tuned the BM25 parameters (k1, b) for all baselines and DeepCT-index methods. We recommend the following parameters:
 - Baseline BM25: k1=0.6, b=0.8
 - DeepCT Documents: k1=10, b=0.9
 - DeepCT-sqrt BM25: k1=18, b=0.7
 - Also see detaills in [issue#2](https://github.com/AdeDZY/DeepCT/issues/2).
-
-`{"id": "2", "contents": "essay essay essay essay essay essay essay essay essay essay essay essay bomb bomb bomb bomb bomb bomb success manmade manmade possible project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project project atomic atomic atomic atomic atomic atomic making making making ..."}`
 
 
 
