@@ -38,8 +38,8 @@ Each line in the json file is the text of a weighted passage. We repeat every wo
 
 In the paper, we fine-tuned the BM25 parameters (k1, b) for all baselines and DeepCT-index methods. We recommend the following parameters:
 - Baseline BM25: k1=0.6, b=0.8
-- DeepCT Documents: k1=10, b=0.9
-- DeepCT-sqrt BM25: k1=18, b=0.7
+- DeepCT: k1=10, b=0.9
+- DeepCT-sqrt: k1=18, b=0.7
 - Also see detaills in [issue#2](https://github.com/AdeDZY/DeepCT/issues/2).
 
 
