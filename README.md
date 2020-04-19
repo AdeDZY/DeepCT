@@ -1,21 +1,18 @@
-# DeepCT: Context-Aware Sentence/Passage Term Importance Estimation For First Stage Retrieval
-Repository for our arXiv paper "Context-Aware Sentence/Passage Term Importance Estimation For First Stage Retrieval"
+# DeepCT and HDCT: Context-Aware Term Importance Estimation For First Stage Retrieval
+This repository contains code for two of our papers: 
+- arXiv paper "Context-Aware Sentence/Passage Term Importance Estimation For First Stage Retrieval" [arXiv](https://arxiv.org/abs/1910.10687), 2019
+- The WebConf2020 paper "Context-Aware Document Term Weighting for Ad-Hoc Search" [pdf](http://www.cs.cmu.edu/~zhuyund/papers/TheWebConf_2020_Dai.pdf), 2020
 
-[Find the paper on arXiv](https://arxiv.org/abs/1910.10687)
+*Feb 19, 2019*: Checkout our new [WebConf2020 paper](http://www.cs.cmu.edu/~zhuyund/papers/TheWebConf_2020_Dai.pdf)! It presents HDCT, which extends DeepCT to support long documents. and unsupervised training! 
+*Feb 19, 2019*: Data and instructions for HDCT will come soon.
 
+Term frequency is a common method for identifying the importance of a term in a query or document. But it is a weak signal. This work proposes a Deep Contextualized Term Weighting framework that learns to map BERT's contextualized text representations to context-aware term weights for sentences and passages. 
 
-Abstract: Term frequency is a common method for identifying the importance of a term in a query or document. But it is a weak signal, especially when the frequency distribution is flat, such as in long queries or short documents where the text is of sentence/passage-length. This paper proposes a Deep Contextualized Term Weighting framework that learns to map BERT's contextualized text representations to context-aware term weights for sentences and passages.
-
-- When applied to **passages**, DeepCT-Index produces term weights that can be stored in an ordinary inverted index for passage retrieval. 
-- When applied to **query** text, DeepCT-Query generates a weighted bag-of-words query that emphasizes essential terms in the query. 
-
-Both types of term weight can be used directly by typical first-stage retrieval algorithms to improve retrieval effectiveness. 
+- DeepCT is a framwork for sentence/passage term weighting. When applied to **passages**, DeepCT-Index produces term weights that can be stored in an ordinary inverted index for passage retrieval. When applied to **query** text, DeepCT-Query generates a weighted bag-of-words query that emphasizes essential terms in the query. 
+- HDCT extends DeepCT to support long documents. It index **documents** int o an ordinary inverted index for retrieval.
 
 <img src="deepct.png" alt="Illustration of DeepCT" width="500"/>
 
-*November 26, 2019*: I am still half-way of cleaning up my experimental codes. But, I have received several requests for the code, so  I started to put what I already have. 
-
-In this version, I provide code, data and instructions for the *document reweighting (DeepCT-Index)* part, focusing on the *MS MARCO* passage ranking dataset. Thank you :P -- Zhuyun
 
 ## DATA 1:DeepCT Retrieved Documents (Initial Rankings)
 
