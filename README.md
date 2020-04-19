@@ -10,7 +10,7 @@ This repository contains code for two of our papers:
 Term frequency is a common method for identifying the importance of a term in a query or document. But it is a weak signal. This work proposes a Deep Contextualized Term Weighting framework that learns to map BERT's contextualized text representations to context-aware term weights for sentences and passages. 
 
 - DeepCT is a framwork for sentence/passage term weighting. When applied to **passages**, DeepCT-Index produces term weights that can be stored in an ordinary inverted index for passage retrieval. When applied to **query** text, DeepCT-Query generates a weighted bag-of-words query that emphasizes essential terms in the query. 
-- HDCT extends DeepCT to support long documents. It index **documents** int o an ordinary inverted index for retrieval.
+- HDCT extends DeepCT to support long documents. It index **documents** into an ordinary inverted index for retrieval.
 
 <img src="deepct.png" alt="Illustration of DeepCT" width="500"/>
 
