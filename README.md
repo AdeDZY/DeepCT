@@ -3,7 +3,7 @@ This repository contains code for two of our papers:
 - arXiv paper "Context-Aware Sentence/Passage Term Importance Estimation For First Stage Retrieval" [arXiv](https://arxiv.org/abs/1910.10687), 2019
 - The WebConf2020 paper "Context-Aware Document Term Weighting for Ad-Hoc Search" [pdf](http://www.cs.cmu.edu/~zhuyund/papers/TheWebConf_2020_Dai.pdf), 2020
 
-*Feb 19, 2019*: Checkout our new [WebConf2020 paper](http://www.cs.cmu.edu/~zhuyund/papers/TheWebConf_2020_Dai.pdf)! It presents HDCT, which extends DeepCT to support long documents. and unsupervised training! 
+*Feb 19, 2019*: Checkout our new WebConf2020 paper ["Context-Aware Document Term Weighting for Ad-Hoc Search" ](http://www.cs.cmu.edu/~zhuyund/papers/TheWebConf_2020_Dai.pdf)! It presents HDCT, which extends DeepCT to support long documents and weakly-supervised training! 
 
 *Feb 19, 2019*: Data and instructions for HDCT will come soon.
 
