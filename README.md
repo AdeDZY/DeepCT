@@ -15,9 +15,9 @@ Term frequency is a common method for identifying the importance of a term in a 
 <img src="deepct.png" alt="Illustration of DeepCT" width="500"/>
 
 
-## DATA 1:DeepCT Retrieved Documents (Initial Rankings)
+## DATA 1:DeepCT Retrieved Results (Initial Rankings)
 
-We released the top 1000 documents retrieved by DeepCT for the MS MARCO dev/eval queries. You can use these as your initial document ranking for downstream re-ranking. The ranking files can be downloaded from [here](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/msmarco_rankings/).
+We released the top 1000 documents retrieved by DeepCT for the MS MARCO Passage Ranking dev/eval queries. You can use these as your initial document ranking for downstream re-ranking. The ranking files can be downloaded from [here](http://boston.lti.cs.cmu.edu/appendices/arXiv2019-DeepCT-Zhuyun-Dai/msmarco_rankings/).
 
 ## DATA 2: Weighted MS-MARCO Passage Files
 
