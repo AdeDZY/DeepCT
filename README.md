@@ -7,6 +7,8 @@ This repository contains code for two of our papers:
 
 *Feb 19, 2019*: Data and instructions for HDCT will come soon.
 
+*May 21, 2020*: Rankings generaed by HDCT for MS-MARCO-Doc: [here](http://boston.lti.cs.cmu.edu/appendices/TheWebConf2020-Zhuyun-Dai/rankings/)
+
 Term frequency is a common method for identifying the importance of a term in a query or document. But it is a weak signal. This work proposes a Deep Contextualized Term Weighting framework that learns to map BERT's contextualized text representations to context-aware term weights for sentences and passages. 
 
 - DeepCT is a framwork for sentence/passage term weighting. When applied to **passages**, DeepCT-Index produces term weights that can be stored in an ordinary inverted index for passage retrieval. When applied to **query** text, DeepCT-Query generates a weighted bag-of-words query that emphasizes essential terms in the query. 
